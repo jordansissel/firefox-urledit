@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<overlay id="urledit-overlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script src="editwin.js"/>
+
+  <vbox flex="1">
+    <listbox id="urledit-listbox">
+      <listhead>
+        <listheader label="Name" />
+        <listheader label="Value" />
+      </listhead>
+      <listcols>
+        <listcol/>
+        <listcol flex="1"/>
+      </listcols>
+    </listbox>
+  </vbox>
+</overlay>

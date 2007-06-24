@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://tabsearch/skin/overlay.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://tabsearch/locale/tabsearch.dtd">
+<overlay id="urledit-overlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script src="overlay.js"/>
+
+  <stringbundleset id="stringbundleset">
+    <stringbundle id="urledit-strings" src="chrome://urledit/locale/urledit.properties"/>
+  </stringbundleset>
+
+  <commandset id="urledit-command-set">
+    <command id="urledit-edit" oncommand="alert('Hello');" />
+  </commandset>
+
+  <menupopup id="urledit-sidebar-menu">
+    <menuitem key="key_urledit_open_sidebar" observes="urledit-sidebar" />
+  </menupopup>
+  
+  <broadcasterset id="mainBroadcasterSet"> 
+    <broadcaster id="urledit-sidebar" 
+                 label="happy label"
+                 autoCheck="false"
+                 type="checkbox"
+                 group="sidebar"
+                 sidebarurl="chrome://urledit/content/editurl.xul"
+                 sidebartitle="Edit URL bar"
+                 oncommand="toggleSidebar('urledit-sidebar');" />
+  </broadcasterset>
+</overlay>
