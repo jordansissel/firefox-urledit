@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<overlay id="urledit-overlay"
-         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-  <script src="editwin.js"/>
-
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?> 
+<dialog xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        id="aboutDialog"
+        windowtype="Browser:About"
+        onload="init(event);" onunload="uninit(event);"
+        title="URL Editor"
+        persist="clientX clientY width height"
+        buttons="accept">
   <vbox flex="1">
-    <listbox id="urledit-listbox">
+    <listbox id="urledit-listbox" flex="1">
       <listhead>
         <listheader label="Name" />
         <listheader label="Value" />
       </listhead>
       <listcols>
-        <listcol/>
-        <listcol flex="1"/>
+        <listcol />
+        <listcol flex="1" />
       </listcols>
     </listbox>
   </vbox>
-</overlay>
+  <script src="editwin.js"/>
+</dialog>

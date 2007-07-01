@@ -6,12 +6,6 @@ function mkxul(elname) {
 
 var urledit_win = {
   onLoad: function() {
-    var mainWindow = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-                       .getInterface(Components.interfaces.nsIWebNavigation)
-                       .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
-                       .rootTreeItem
-                       .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-                       .getInterface(Components.interfaces.nsIDOMWindow);
     var urlbar = mainWindow.document.getElementById("urlbar");
     var val = urlbar.value;
     var spliturl = val.split("?", 2);

@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<page xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-      id="urledit-page">
-  <script src="editurl.js" />
-  <vbox flex="1">
-    <listbox id="urledit-listbox">
-      <listhead>
-        <listheader label="Name" />
-        <listheader label="Value" />
-      </listhead>
-      <listcols>
-        <listcol/>
-        <listcol flex="1"/>
-      </listcols>
-    </listbox>  
-  </vbox>
-</page> 
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<vbox flex="1">
+  <listbox id="urledit-listbox">
+    <listhead>
+      <listheader label="Name" />
+      <listheader label="Value" />
+    </listhead>
+    <listcols>
+      <listcol/>
+      <listcol flex="1"/>
+    </listcols>
+  </listbox>  
+</vbox>
 

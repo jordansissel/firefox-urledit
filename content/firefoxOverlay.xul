@@ -13,18 +13,8 @@
     <command id="urledit-edit" oncommand="alert('Hello');" />
   </commandset>
 
-  <menupopup id="urledit-sidebar-menu">
+  <menupopup id="urledit-edit-url-menu">
     <menuitem key="key_urledit_open_sidebar" observes="urledit-sidebar" />
   </menupopup>
   
-  <broadcasterset id="mainBroadcasterSet"> 
-    <broadcaster id="urledit-sidebar" 
-                 label="happy label"
-                 autoCheck="false"
-                 type="checkbox"
-                 group="sidebar"
-                 sidebarurl="chrome://urledit/content/editurl.xul"
-                 sidebartitle="Edit URL bar"
-                 oncommand="toggleSidebar('urledit-sidebar');" />
-  </broadcasterset>
 </overlay>
