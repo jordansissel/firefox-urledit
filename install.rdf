@@ -2,11 +2,11 @@
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
  xmlns:em="http://www.mozilla.org/2004/em-rdf#">
   <Description about="urn:mozilla:install-manifest">
-    <em:id>urledit@jordan.sissel</em:id>
+    <em:id>urledit@semicomplete.com</em:id>
     <em:name>urledit</em:name>
     <em:version>20070623</em:version>
     <em:creator>Jordan Sissel</em:creator>
-    <em:description>Search tabs</em:description>
+    <em:description>Edit URLs quickly</em:description>
     <em:homepageURL>http://www.semicomplete.com/projects/firefox-urledit</em:homepageURL>
     <!-- 
       No options for now.

@@ -2,23 +2,41 @@
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?> 
 <dialog xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-        id="aboutDialog"
+        id="urledit-window"
         windowtype="Browser:About"
-        onload="init(event);" onunload="uninit(event);"
         title="URL Editor"
-        persist="clientX clientY width height"
+        persist="screenX screenY width height"
+        ondialogaccept="window._urledit.editor_writeurl()"
         buttons="accept">
-  <vbox flex="1">
-    <listbox id="urledit-listbox" flex="1">
-      <listhead>
-        <listheader label="Name" />
-        <listheader label="Value" />
-      </listhead>
-      <listcols>
-        <listcol />
-        <listcol flex="1" />
-      </listcols>
-    </listbox>
-  </vbox>
+
   <script src="editwin.js"/>
+
+  <commandset id="urledit-editwin-commandset">
+    <command id="urledit-cmd-add" oncommand="urledit_editor_add()" />
+    <command id="urledit-cmd-del" oncommand="urledit_editor_del()" />
+    <command id="urledit-cmd-mod" oncommand="urledit_editor_mod()" />
+    <command id="urledit-cmd-dup" oncommand="urledit_editor_dup()" />
+  </commandset>
+
+  <popupset id="urledit-editwin-popupset">
+    <popup id="urledit-editwin-listcontext">
+      <menuitem label="Add variable" command="urledit-cmd-add" />
+      <menuitem label="Delete variable" command="urledit-cmd-del" />
+      <menuitem label="Edit variable" command="urledit-cmd-mod" />
+      <menuitem label="Duplicate variable" command="urledit-cmd-dup" />
+    </popup>
+  </popupset>
+
+  <vbox flex="1">
+    <tree id="urledit-tree" flex="1"
+              context="urledit-editwin-listcontext">
+      <treecols>
+        <treecol label="Name" flex="1" 
+                 sortActive="true" sortOrder="descending" sort="label"/>
+        <splitter/>
+        <treecol label="Value" flex="8" />
+      </treecols>
+      <treechildren id="urledit-treechildren" />
+    </tree>
+  </vbox>
 </dialog>

@@ -53,14 +53,22 @@ UrlEdit.prototype = {
     } 
 
     this._browserwin = window;
-    var retval = { newurl: undefined };
     window.openDialog("chrome://urledit/content/editwin.xul", 
-                      "URL Editor", "modal",
-                      this);
+                            "URL Editor", "modal",
+                            this);
 
   },
 
   editor_onload: function() {
+    var tree = this._editwin.document.getElementById("urledit-tree");
+    var _urledit = this;
+    tree.addEventListener("click", function(e) { 
+      /* Doubleclick on left button */
+      if (e.detail == 2 && e.button == 0) {
+        var cmd = _urledit._editwin.document.getElementById("urledit-cmd-mod");
+        cmd.doCommand();
+      }
+    }, false);
     this.editor_populate();
   },
 
@@ -74,23 +82,89 @@ UrlEdit.prototype = {
     var query = spliturl[1].split("&");
     var arg_re = /^([^=]+)=(.*)$/;
 
-    var listbox = this._editwin.document.getElementById("urledit-listbox");
     for (var i = 0; i < query.length; i++) {
       var m = arg_re.exec(query[i]);
-      var keystr = (m && m[1]) || query[i];
-      var valstr = (m && unescape(m[2])) || "";
-      valstr = valstr.replace(/\+/g, " ");
+      var keystr = query[i];
+      var valstr = "";
 
-      var li = mkxul("listitem");
-      var key = mkxul("listcell");
-      var val = mkxul("listcell");
-      key.setAttribute("label", keystr);
-      val.setAttribute("label", valstr);
-      li.appendChild(key);
-      li.appendChild(val);
-      listbox.appendChild(li);
+      if (m) {
+        keystr = (m && m[1]) || query[i];
+        valstr = (m && unescape(m[2])) || "";
+        valstr = valstr.replace(/\+/g, " ");
+      }
+
+      if (keystr)
+        this.editor_add(keystr, valstr);
     }
   },
+
+  editor_add: function(keystr, valstr) {
+    var tree = this._editwin.document.getElementById("urledit-treechildren");
+    var ti = mkxul("treeitem");
+    var tr = mkxul("treerow");
+    var key = mkxul("treecell");
+    var val = mkxul("treecell");
+    key.setAttribute("label", keystr);
+    val.setAttribute("label", valstr);
+    tr.appendChild(key);
+    tr.appendChild(val);
+    ti.appendChild(tr);
+
+    /* Figure out where in the tree to insert this item */
+    var lowcase_keystr = keystr.toLowerCase();
+    var items = tree.getElementsByTagName("treeitem");
+    for (var i = 0; i < items.length; i++) {
+      // treeitem/treerow/treecell[0]
+      var item_key = items[i].childNodes[0].childNodes[0].getAttribute("label");
+      if (item_key.toLowerCase() > lowcase_keystr) {
+        tree.insertBefore(ti, items[i]);
+        return;
+      }
+    }
+    tree.appendChild(ti);
+  },
+
+  editor_del: function(index) {
+    var tree = this._editwin.document.getElementById("urledit-tree");
+    var treechildren = tree.getElementsByTagName("treechildren")[0];
+    treechildren.removeChild(treechildren.childNodes[index]);
+  },
+
+  editor_mod: function(index) {
+    var tree = this._editwin.document.getElementById("urledit-tree");
+    var treechildren = tree.getElementsByTagName("treechildren")[0];
+    var treeitem = treechildren.childNodes[index];
+
+    // Get the value
+    var valuecell = treeitem.childNodes[0].childNodes[1];
+    var valuestr = valuecell.getAttribute("label");
+    valuestr = prompt("New value:", valuestr);
+    if (valuestr)
+      valuecell.setAttribute("label", valuestr);
+  },
+
+  editor_writeurl: function() {
+    var tree = this._editwin.document.getElementById("urledit-tree");
+    var treechildren = tree.getElementsByTagName("treechildren")[0];
+
+    var query = "";
+    
+    for (var i = 0; i < treechildren.childNodes.length; i++) {
+      var tr = treechildren.childNodes[i].childNodes[0];
+      var keystr = tr.childNodes[0].getAttribute("label");
+      var valuestr = tr.childNodes[1].getAttribute("label");
+      query += keystr;
+      if (valuestr)
+        query += "=" + escape(valuestr);
+      query += "&";
+    }
+
+    var hostpath = this._urlbar.value.split("?")[0];
+
+    this._urlbar.value = hostpath + "?" + query;
+  },
+
+
 };
 
 window.addEventListener("load", function(e) { urledit_onload(e); }, false);
