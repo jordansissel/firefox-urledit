@@ -4,7 +4,7 @@
   <Description about="urn:mozilla:install-manifest">
     <em:id>urledit@semicomplete.com</em:id>
     <em:name>urledit</em:name>
-    <em:version>20070623</em:version>
+    <em:version>20070701</em:version>
     <em:creator>Jordan Sissel</em:creator>
     <em:description>Edit URLs quickly</em:description>
     <em:homepageURL>http://www.semicomplete.com/projects/firefox-urledit</em:homepageURL>

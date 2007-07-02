@@ -54,7 +54,7 @@ UrlEdit.prototype = {
 
     this._browserwin = window;
     window.openDialog("chrome://urledit/content/editwin.xul", 
-                            "URL Editor", "modal",
+                            "URL Editor", "modal,resizable",
                             this);
 
   },

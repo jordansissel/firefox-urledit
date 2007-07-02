@@ -3,9 +3,9 @@
 <dialog xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         id="urledit-window"
-        windowtype="Browser:About"
         title="URL Editor"
         persist="screenX screenY width height"
+        width="500" height="300"
         ondialogaccept="window._urledit.editor_writeurl()"
         buttons="accept">
 

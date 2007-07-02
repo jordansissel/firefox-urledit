@@ -1,7 +1,7 @@
 all:
 	sh build.sh
-	scp urledit.xpi 192.168.0.5:.mozilla/firefox/*.default/extensions
-	ssh 192.168.0.5 'cd .mozilla/firefox/*.default/extensions/; mkdir urledit@semicomplete.com; cd urledit@semicomplete.com; echo "A" | unzip ../urledit.xpi; rm ../urledit.xpi'
+#scp urledit.xpi 192.168.0.5:.mozilla/firefox/*.default/extensions
+#ssh 192.168.0.5 'cd .mozilla/firefox/*.default/extensions/; mkdir urledit@semicomplete.com; cd urledit@semicomplete.com; echo "A" | unzip ../urledit.xpi; rm ../urledit.xpi'
 
 run-updater:
 	while true; do \
